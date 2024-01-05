@@ -1,55 +1,91 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const isFormValid = () => {
+    if (formData.nombre === '' || formData.apellido === '' || formData.email === '' || formData.password === '' || formData.password2 === '') {
+      return false;
+    }
+    if (formData.password !== formData.password2) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Enviamos los datos del formulario de registro al servidor en flask
-    const data = { nombre, apellido, email, password, password2 };
+
+    if (!isFormValid()) {
+      alert("Faltan campos por rellenar");
+      return;
+    }
+
     try {
-      fetch('http://localhost:5000/register', {
+      const response = await fetch('http://localhost:5000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
-    }
-    catch (error) {
-      console.error('Error:', error);
-    }
 
+      if (response.status === 200) {
+        const responseData = await response.json();
 
-};
+        if (responseData.token) {
+          localStorage.setItem('token', responseData.token);
+        }
+        navigate('/login');
+      } else if (response.status === 400) {
+        alert("Las contraseñas no coinciden");
+      } else if (response.status === 409) {
+        alert("El email ya está registrado");
+      } else if (response.status === 500) {
+        alert("Error en el servidor");
+      } else if (response.status === 401) {
+        alert("Faltan campos por rellenar");
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} method="POST">
       <label>
         Nombre:
-        <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+        <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
       </label>
       <br />
       <label>
         Apellido:
-        <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+        <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
       </label>
       <br />
       <label>
         Email:
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="text" name="email" value={formData.email} onChange={handleChange} />
       </label>
       <br />
       <label>
         Contraseña:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" name="password" value={formData.password} onChange={handleChange} />
       </label>
       <br />
       <label>
         Repetir Contraseña:
-        <input type="password" value={password2} onChange={(e) => setPassword2(e.target.value)} />
+        <input type="password" name="password2" value={formData.password2} onChange={handleChange} />
       </label>
       <br />
       <button type="submit">Registrarse</button>
