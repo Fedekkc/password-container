@@ -1,4 +1,157 @@
-cursor: asd
-result: 
-result: (26, 'asd', 'asd', 'asd', '68e7c38f1e60dc922f538281e79545e8392412a71234eb5cf53be072d3df772bca0015c9a1644b91e9e8adb159813644d8479d972bacd696509fab5bf83492f3', '2024-01-04 20:59:34')
-result: 68e7c38f1e60dc922f538281e79545e8392412a71234eb5cf53be072d3df772bca0015c9a1644b91e9e8adb159813644d8479d972bacd696509fab5bf83492f3
+[14:30:26] User doesn't exist
+[14:31:13] User already exists
+[15:56:04] User doesn't exist
+[15:56:04] [+] User added successfully
+[16:08:55] User doesn't exist
+[16:08:55] [+] User added successfully
+[16:09:28] User doesn't exist
+[16:09:34] [+] User added successfully
+[16:15:33] User doesn't exist
+[16:15:34] [+] User added successfully
+[16:29:47] User doesn't exist
+[16:29:48] [+] User added successfully
+[16:30:18] VIEW request
+[16:30:18] Error in get_user_passwords
+[16:30:18] VIEW request
+[16:30:18] Error in get_user_passwords
+[16:31:12] User doesn't exist
+[16:31:12] [+] User added successfully
+[16:31:22] VIEW request
+[16:31:22] Error in get_user_passwords
+[16:31:22] VIEW request
+[16:31:22] Error in get_user_passwords
+[16:32:33] [+] Password added successfully
+[16:32:33] Password added successfully
+[16:32:33] VIEW request
+[16:32:33] Error in get_user_passwords: Object of type Password is not JSON serializable
+[16:33:02] VIEW request
+[16:33:02] Error in get_user_passwords: Object of type Password is not JSON serializable
+[16:33:02] VIEW request
+[16:33:02] Error in get_user_passwords: Object of type Password is not JSON serializable
+[16:33:44] VIEW request
+[16:33:44] Error in get_user_passwords: Object of type Password is not JSON serializable
+[16:33:44] VIEW request
+[16:33:44] Error in get_user_passwords: Object of type Password is not JSON serializable
+[16:34:21] VIEW request
+[16:34:21] Error in get_user_passwords: Object of type Password is not JSON serializable
+[16:34:21] VIEW request
+[16:34:21] Error in get_user_passwords: Object of type Password is not JSON serializable
+[16:38:16] VIEW request
+[16:38:16] Error getting passwords in dashboard(): 'Password' object has no attribute 'to_dict'
+[16:38:16] VIEW request
+[16:38:16] Error getting passwords in dashboard(): 'Password' object has no attribute 'to_dict'
+[16:38:55] VIEW request
+[16:38:55] Error getting passwords in dashboard(): 'Password' object has no attribute 'id'
+[16:38:55] VIEW request
+[16:38:55] Error getting passwords in dashboard(): 'Password' object has no attribute 'id'
+[16:39:13] VIEW request
+[16:39:13] Error getting passwords in dashboard(): 'str' object has no attribute 'isoformat'
+[16:39:13] VIEW request
+[16:39:13] Error getting passwords in dashboard(): 'str' object has no attribute 'isoformat'
+[16:40:42] VIEW request
+[16:40:42] VIEW request
+[16:42:09] VIEW request
+[16:42:09] VIEW request
+[16:44:14] VIEW request
+[16:44:14] Error getting passwords in dashboard(): name 'sys' is not defined
+[16:44:14] VIEW request
+[16:44:14] Error getting passwords in dashboard(): name 'sys' is not defined
+[16:44:48] VIEW request
+[16:44:48] Error getting passwords in dashboard(): name 'sys' is not defined
+[16:44:49] VIEW request
+[16:44:49] Error getting passwords in dashboard(): name 'sys' is not defined
+[16:45:11] VIEW request
+[16:45:11] VIEW request
+[16:46:50] VIEW request
+[16:46:50] VIEW request
+[16:47:15] VIEW request
+[16:47:16] VIEW request
+[16:47:26] VIEW request
+[16:47:26] VIEW request
+[16:47:36] VIEW request
+[16:47:36] VIEW request
+[16:49:53] VIEW request
+[16:49:53] VIEW request
+[16:50:11] VIEW request
+[16:50:11] VIEW request
+[16:51:09] VIEW request
+[16:51:09] VIEW request
+[16:51:56] VIEW request
+[16:51:57] VIEW request
+[16:51:57] VIEW request
+[16:52:59] VIEW request
+[16:52:59] VIEW request
+[16:52:59] VIEW request
+[16:52:59] VIEW request
+[16:54:07] Error executing query: 1062 (23000): Duplicate entry '10' for key 'passwords.PRIMARY'
+Query: INSERT INTO `passwords` (id_user, service, password, register_date) VALUES (%s, %s, %s, NOW())
+[16:54:07] [+] Password added successfully
+[16:54:07] Password added successfully
+[16:54:10] VIEW request
+[16:54:11] VIEW request
+[16:54:14] Error executing query: 1062 (23000): Duplicate entry '10' for key 'passwords.PRIMARY'
+Query: INSERT INTO `passwords` (id_user, service, password, register_date) VALUES (%s, %s, %s, NOW())
+[16:54:14] [+] Password added successfully
+[16:54:14] Password added successfully
+[16:54:14] VIEW request
+[16:54:14] VIEW request
+[16:54:30] VIEW request
+[16:54:30] VIEW request
+[16:54:34] Error executing query: 1062 (23000): Duplicate entry '10' for key 'passwords.PRIMARY'
+Query: INSERT INTO `passwords` (id_user, service, password, register_date) VALUES (%s, %s, %s, NOW())
+[16:54:34] [+] Password added successfully
+[16:54:34] Password added successfully
+[16:54:34] VIEW request
+[19:48:34] User doesn't exist
+[19:48:35] [+] User added successfully
+[19:49:05] VIEW request
+[19:49:05] Error in get_user_passwords
+[19:49:05] VIEW request
+[19:49:05] Error in get_user_passwords
+[19:49:10] [+] Password added successfully
+[19:49:10] Password added successfully
+[19:49:10] VIEW request
+[19:49:21] Error executing query: 1062 (23000): Duplicate entry '11' for key 'passwords.PRIMARY'
+Query: INSERT INTO `passwords` (id_user, service, password, register_date) VALUES (%s, %s, %s, NOW())
+[19:49:21] [+] Password added successfully
+[19:49:21] Password added successfully
+[19:49:28] Error executing query: 1062 (23000): Duplicate entry '11' for key 'passwords.PRIMARY'
+Query: INSERT INTO `passwords` (id_user, service, password, register_date) VALUES (%s, %s, %s, NOW())
+[19:49:28] [+] Password added successfully
+[19:49:28] Password added successfully
+[19:51:37] VIEW request
+[19:51:37] VIEW request
+[19:51:56] Error executing query: 1062 (23000): Duplicate entry '11' for key 'passwords.PRIMARY'
+Query: INSERT INTO `passwords` (id_user, service, password, register_date) VALUES (%s, %s, %s, NOW())
+[19:51:56] [+] Password added successfully
+[19:51:56] Password added successfully
+[19:52:23] VIEW request
+[19:52:23] VIEW request
+[19:53:47] VIEW request
+[19:53:47] VIEW request
+[19:56:48] VIEW request
+[19:56:48] Error in get_user_passwords
+[19:56:48] VIEW request
+[19:56:48] Error in get_user_passwords
+[19:56:56] User doesn't exist
+[19:56:56] [+] User added successfully
+[19:56:58] VIEW request
+[19:56:58] Error in get_user_passwords
+[19:56:58] VIEW request
+[19:56:58] Error in get_user_passwords
+[19:57:00] [+] Password added successfully
+[19:57:00] Password added successfully
+[19:57:01] VIEW request
+[19:57:05] [+] Password added successfully
+[19:57:05] Password added successfully
+[19:59:13] VIEW request
+[19:59:13] VIEW request
+[19:59:17] [+] Password added successfully
+[19:59:17] Password added successfully
+[19:59:20] [+] Password added successfully
+[19:59:20] Password added successfully
+[19:59:23] VIEW request
+[19:59:23] VIEW request
+[21:23:09] User doesn't exist
+[21:23:41] User doesn't exist
+[21:27:32] User doesn't exist

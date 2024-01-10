@@ -18,7 +18,7 @@ const DashboardForm = () => {
         e.preventDefault();
         const data = { userId, service, user, password };
         
-        fetch('http://localhost:5000/dashboard', {
+        fetch('http://localhost:5000/dashboard?action=add', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),

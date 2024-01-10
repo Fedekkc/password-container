@@ -1,8 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 
-const LoginForm = () => {
+const Form = styled.form`
+  color: white;
+`;
+
+const Label = styled.label`
+  color: white;
+`;
+
+const Input = styled.input`
+  color: black;
+`;
+
+const Button = styled.button`
+  color: white;
+`;
+
+
+const LoginForm = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -26,12 +44,14 @@ const LoginForm = () => {
           setToken(responseData.token);
           // Almacena el token en localStorage o en una cookie si es necesario
           localStorage.setItem('token', responseData.token);
-          //Almacena el ID del usuario en localStorage o en una cookie si es necesario
+          // Almacena el ID del usuario en localStorage o en una cookie si es necesario
           localStorage.setItem('userId', responseData.userId);
 
+          // Actualiza el estado de isLoggedIn en App.js
+          setIsLoggedIn(true);
+
           navigate('/dashboard', { state: { token: responseData.token } });
-        }
-        else {
+        } else {
           alert("No se ha podido iniciar sesión");
         }
       } else if (response.status === 401) {
@@ -47,20 +67,22 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <Form onSubmit={handleSubmit}>
+      <Label>
         Email:
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </label>
+        <Input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </Label>
       <br />
-      <label>
+      <Label>
         Contraseña:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
+        <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </Label>
       <br />
-      <button type="submit">Iniciar sesión</button>
-    </form>
+      <Button type="submit">Iniciar sesión</Button>
+    </Form>
   );
 };
 
 export default LoginForm;
+
+

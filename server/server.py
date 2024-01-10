@@ -1,9 +1,10 @@
+import sys
 from flask import Flask, render_template, request
 import jwt
 from datetime import datetime, timedelta
 from flask_cors import CORS
 from flask import jsonify
-from app import create_account, login, userExists, hash_password, verify_password
+from app import add_password, create_account, get_user_passwords, login, user_exists, hash_password, verify_password, write_log
 from user import User
 from password import Password
 import time
@@ -24,36 +25,60 @@ def generate_token(user_id):
 CORS(app)  # Configura CORS para permitir todas las solicitudes desde cualquier origen    
     
 
-@app.route('/home')
-def home():
-    if request.method == 'GET':
-        action = request.args.get('action')
-        if action == 'logout':
-            return render_template('login.html')
-        elif action == 'add':
-            return render_template('add.html')
-        else:
-            return render_template('home.html')
-        
+
+
         
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    data = request.get_json()
-
-    if not data:
+    try: 
+        data = request.get_json()
+        user_id = data.get('userId')
+        if request.method == 'POST':
+            action = request.args.get('action')
+            if action == 'view':
+                write_log("VIEW request")
+                if not user_id:
+                    return jsonify({'error': 'Faltan algunos campos requeridos'}), 400
+                try:
+                    passwords = get_user_passwords(user_id)
+                    if(passwords == False):
+                        write_log("Error in get_user_passwords")
+                        return jsonify({'error': 'No se pudo obtener las contraseñas'}), 500
+                    
+                    # recorre la lista de contraseñas y las convierte a diccionarios
+                    
+                    for i in range(len(passwords)):
+                        passwords[i] = passwords[i].to_dict()    
+                        
+                        
+                    print(passwords, file=sys.stderr)
+                    return jsonify({'passwords': passwords}), 200
+                
+                except Exception as e:
+                    write_log("Error getting passwords in dashboard(): " + str(e))
+                    return jsonify({'error': 'No se pudo obtener las contraseñas'}), 500
+            elif action == 'add':
+            
+                service = data.get('service')
+                user = data.get('user')
+                password = data.get('password')
+                
+                if not user_id or not service or not user or not password:
+                    return jsonify({'error': 'Faltan algunos campos requeridos'}), 400
+                
+                password = hash_password(password)
+                passwordObj = Password(user_id, service, password, '')   
+                
+                
+                if add_password(passwordObj):
+                    write_log("Password added successfully")
+                    return jsonify({'message': 'Contraseña guardada con éxito'}), 200
+                else:
+                    write_log("Error in add_password")
+                    return jsonify({'error': 'No se pudo guardar la contraseña'}), 500
+                
+    except Exception as e:
         return jsonify({'error': 'No se han proporcionado datos en el formato esperado'}), 400
-
-    user_id = data.get('userId')
-    service = data.get('service')
-    user = data.get('user')
-    password = data.get('password')
-    
-    if not user_id or not service or not user or not password:
-        return jsonify({'error': 'Faltan algunos campos requeridos'}), 402
-    
-    password = hash_password(password)
-    passwordObj = Password(user_id, service, user, password, '')   
-    
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -93,18 +118,19 @@ def register():
     email = data.get('email')
     password = data.get('password')
     password2 = data.get('password2')
+    
 
     if not nombre or not apellido or not email or not password or not password2:
         return jsonify({'error': 'Faltan algunos campos requeridos'}), 401
     if password != password2:
         return jsonify({'error': 'Las contraseñas no coinciden'}), 400
     
-    if userExists(User('', '', email, '', '')):      
+    if user_exists(email):      
+        write_log("User already exists")
         return jsonify({'error': 'El correo utilizado ya está en uso'}), 409
-
     else:
-        register_date = time.strftime('%Y-%m-%d %H:%M:%S')
-        user = User(nombre, apellido, email, password, register_date)
+        write_log("User doesn't exist")
+        user = User(nombre, apellido, email, password, '')
         user_id = create_account(user)
         if user_id:
             # Genera un token JWT después de un registro exitoso
