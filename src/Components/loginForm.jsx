@@ -3,21 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 
-const Form = styled.form`
-  color: white;
-`;
-
-const Label = styled.label`
-  color: white;
-`;
-
-const Input = styled.input`
-  color: black;
-`;
-
-const Button = styled.button`
-  color: white;
-`;
 
 
 const LoginForm = ({ setIsLoggedIn }) => {
@@ -43,7 +28,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
         if (responseData.token) {
           setToken(responseData.token);
           // Almacena el token en localStorage o en una cookie si es necesario
-          localStorage.setItem('token', responseData.token);
+          localStorage.setItem('token', token);
           // Almacena el ID del usuario en localStorage o en una cookie si es necesario
           localStorage.setItem('userId', responseData.userId);
 
@@ -67,22 +52,116 @@ const LoginForm = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label>
-        Email:
-        <Input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </Label>
-      <br />
-      <Label>
-        Contraseña:
-        <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </Label>
-      <br />
-      <Button type="submit">Iniciar sesión</Button>
+    <>
+      <LoginContainer>
+      <Form onSubmit={handleSubmit}>
+      
+      <Input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo Electrónico' />
+      
+      
+      
+      <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' />
+      <Buttons>
+      <RegisterButton type="button" className='registerButton'>Registrarse</RegisterButton>
+      <LoginButton type="button" className='loginButton'>Iniciar sesión</LoginButton>
+      </Buttons>
+      
+      
+      
     </Form>
+    </LoginContainer>
+    
+    
+    </>
+    
   );
 };
 
 export default LoginForm;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const Input = styled.input`
+  margin-top: 5%;
+  
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  width: 71%;
+  height: 18%;
+  font-size: 2.1rem;
+  outline: none;
+  
+  background-color: rgba(58, 55, 55, 0.57);
+
+  
+  &::placeholder {
+    color: rgba(197, 200, 200, 0.60);
+  }
+`;
+
+const Buttons = styled.div`
+width: 71%;
+height: 100%;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+
+
+`;
+
+
+const RegisterButton = styled.button`
+
+width: 25%;
+height: 25%;
+border-radius: 35px;
+border: inset 2px rgba(238,239,233,0.8);
+background-color: #111016;
+color: #959695;
+
+&:hover{
+  background-color: rgba(238,239,233,0.8);
+  color: #111016;
+  cursor: pointer;
+}
+`;
+
+const LoginButton = styled.button`
+
+width: 25%;
+height: 25%;
+border-radius: 35px;
+background-color: rgba(238,239,233,0.8);
+color: #111016;
+
+&:hover{
+  background-color: #111016;
+  color: rgba(238,239,233,0.8);
+  border: inset 2px rgba(238,239,233,0.8);
+  cursor: pointer;
+}
+
+`;
+
+
+const LoginContainer = styled.div`
+  background-color: #111016;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 50%;
+  border-radius: 100px;
+  box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
+`;
 
