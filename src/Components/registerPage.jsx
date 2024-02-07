@@ -1,13 +1,22 @@
 import React from 'react';
 import RegisterForm from './registerForm';
+import styled from 'styled-components';
+
+
+const RegisterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 80vh;
+`;
 
 const RegisterPage = () => {
   return (
-    <div>
-      <h1>Página de Registro</h1>
+    <RegisterContainer>
       <RegisterForm />
-    </div>
+    </RegisterContainer>
   );
 };
-
 export default RegisterPage;

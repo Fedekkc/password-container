@@ -1,7 +1,8 @@
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ element: Component, isLoggedIn, ...rest }) => {
-  return isLoggedIn ? <Route {...rest} element={Component} /> : <Navigate to="/login" />;
+const PrivateRoute = ({ children, isLoggedIn}) => {
+
+  return isLoggedIn ? <>{children}</> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

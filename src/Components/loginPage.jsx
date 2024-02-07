@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginForm from './loginForm';
 import styled from 'styled-components';
 
@@ -11,10 +11,13 @@ const LoginContainer = styled.div`
   height: 80vh;
 `;
 
-const LoginPage = () => {
+
+const LoginPage = ( {setIsLoggedIn} ) => {
+  
+
   return (
     <LoginContainer>
-      <LoginForm />
+      <LoginForm setIsLoggedIn={setIsLoggedIn} />
     </LoginContainer>
   );
 }

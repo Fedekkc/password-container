@@ -6,14 +6,20 @@ import styled from 'styled-components';
 
 
 const LoginForm = ({ setIsLoggedIn }) => {
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const [token, setToken] = useState(null);
+  
+  const handleRegister = () => {
+    navigate('/register');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { email, password };
+
     
     try {
       const response = await fetch('http://localhost:5000/login', {
@@ -25,6 +31,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
       if (response.status === 200) {
         const responseData = await response.json();
 
+
         if (responseData.token) {
           setToken(responseData.token);
           // Almacena el token en localStorage o en una cookie si es necesario
@@ -34,11 +41,14 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
           // Actualiza el estado de isLoggedIn en App.js
           setIsLoggedIn(true);
+          console.log("Sesión iniciada");
 
           navigate('/dashboard', { state: { token: responseData.token } });
         } else {
           alert("No se ha podido iniciar sesión");
         }
+
+
       } else if (response.status === 401) {
         alert("El email o la contraseña son incorrectos");
       } else if (response.status === 402) {
@@ -62,8 +72,8 @@ const LoginForm = ({ setIsLoggedIn }) => {
       
       <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' />
       <Buttons>
-      <RegisterButton type="button" className='registerButton'>Registrarse</RegisterButton>
-      <LoginButton type="button" className='loginButton'>Iniciar sesión</LoginButton>
+      <RegisterButton type="button" className='registerButton' onClick={handleRegister}>Registrarse</RegisterButton>
+      <LoginButton type="submit" className='loginButton'>Iniciar sesión</LoginButton>
       </Buttons>
       
       
@@ -89,7 +99,7 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  margin-top: 5%;
+  margin-top: 10%;
   
   padding: 10px;
   border-radius: 20px;
@@ -122,7 +132,7 @@ justify-content: space-between;
 const RegisterButton = styled.button`
 
 width: 25%;
-height: 25%;
+height: 30%;
 border-radius: 35px;
 border: inset 2px rgba(238,239,233,0.8);
 background-color: #111016;
@@ -138,7 +148,7 @@ color: #959695;
 const LoginButton = styled.button`
 
 width: 25%;
-height: 25%;
+height: 30%;
 border-radius: 35px;
 background-color: rgba(238,239,233,0.8);
 color: #111016;

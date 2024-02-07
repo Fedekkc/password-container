@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterPage from './Components/registerPage';
 import LoginPage from './Components/loginPage';
 import DashboardPage from './Components/dashboardPage';
 import HomePage from './Components/homePage';
 import NavBar from './Components/navBar';
 import PrivateRoute from './Components/privateRoute';
-import { createGlobalStyle, ThemeProvider } from 'styled-components'; // ThemeProvider es opcional, pero si se usa, se debe definir un tema para el estilo global
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+
 
 // Crea un componente global de estilo
 const GlobalStyle = createGlobalStyle`
@@ -45,8 +46,18 @@ const theme = {
 
 };
 
+
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if(isLoggedIn){
+      localStorage.setItem('isLoggedIn', true);
+    }
+  }, [isLoggedIn]);
+
+  console.log(isLoggedIn);
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,15 +68,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/dashboard"
-              element={
-                <PrivateRoute isLoggedIn={isLoggedIn}>
-                  <DashboardPage />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/dashboard" element={ <PrivateRoute isLoggedIn={isLoggedIn} children={<DashboardPage />} />} />
           </Routes>
         </Router>
       </>
