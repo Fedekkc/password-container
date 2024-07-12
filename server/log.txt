@@ -1,0 +1,9 @@
+Log file created[23:07:04] User doesn't exist
+[23:07:04] [+] User added successfully
+[23:12:06] User already exists
+[23:12:19] User doesn't exist
+[23:12:20] [+] User added successfully
+[23:12:33] VIEW request
+[23:12:33] Error in get_user_passwords
+[23:12:33] VIEW request
+[23:12:33] Error in get_user_passwords

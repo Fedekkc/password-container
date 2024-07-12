@@ -44,7 +44,7 @@ def write_log(message):
 create_log_file()
 
 # Read database configuration from JSON
-with open("bd.json", "r") as j:
+with open("db/db.json", "r") as j:
     data = json.load(j)
 
 # Database connection pooling setup

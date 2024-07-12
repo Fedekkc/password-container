@@ -18,7 +18,7 @@ app.config['JSON_SORT_KEYS'] = False
 
 # Función para generar un token JWT
 def generate_token(user_id):
-    expiration_time = datetime.utcnow() + timedelta(hours=1)
+    expiration_time = datetime.now() + timedelta(hours=1)
     payload = {'user_id': user_id, 'exp': expiration_time}
     token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
     return token
