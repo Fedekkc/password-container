@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import DashboardForm from "./dashboardForm";
 import ShowPasswords from "./showPasswords";
 
 const DashboardPage = () => {
@@ -58,12 +57,17 @@ const DashboardPage = () => {
     }
   };
   
+  
+
+
+
+
   return (
     <div>
       <h1>Dashboard</h1>
       <button onClick={handleLogout}>Cerrar sesión</button>
       <h1>Contraseñas</h1>
-      <DashboardForm />
+      
       <ShowPasswords passwords={passwords} />
     </div>
   );
