@@ -28,11 +28,11 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
         if (responseData.token) {
           setToken(responseData.token);
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', responseData.token);
           localStorage.setItem('userId', responseData.userId);
           setIsLoggedIn(true);
           console.log("Sesión iniciada");
-          navigate('/dashboard', { state: { token: responseData.token } });
+          navigate('/dashboard', { state: { token: responseData.token } }); //state es un objeto que se pasa a la siguiente ruta, se puede acceder a el con useLocation ejemplo: useLocation().state.token
         } else {
           alert("No se ha podido iniciar sesión");
         }

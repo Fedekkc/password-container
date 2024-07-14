@@ -1,63 +1,10 @@
-Log file created[23:07:04] User doesn't exist
-[23:07:04] [+] User added successfully
-[23:12:06] User already exists
-[23:12:19] User doesn't exist
-[23:12:20] [+] User added successfully
-[23:12:33] VIEW request
-[23:12:33] Error in get_user_passwords
-[23:12:33] VIEW request
-[23:12:33] Error in get_user_passwords
-[23:35:42] User doesn't exist
-[23:35:48] User doesn't exist
-[23:36:24] User doesn't exist
-[23:36:24] [+] User added successfully
-[23:36:28] VIEW request
-[23:36:28] Error in get_user_passwords
-[23:36:29] VIEW request
-[23:36:29] Error in get_user_passwords
-[23:40:38] [+] Password added successfully
-[23:40:38] Password added successfully
-[23:40:43] VIEW request
-[23:40:43] VIEW request
-[23:41:08] VIEW request
-[23:41:08] VIEW request
-[23:42:48] VIEW request
-[23:46:06] VIEW request
-[23:49:17] VIEW request
-[23:49:17] VIEW request
-[23:56:49] VIEW request
-[23:56:49] VIEW request
-[00:00:40] VIEW request
-[00:00:40] VIEW request
-[00:07:08] VIEW request
-[00:07:08] VIEW request
-[00:10:17] VIEW request
-[00:10:17] VIEW request
-[00:15:29] VIEW request
-[00:15:30] VIEW request
-[00:36:21] VIEW request
-[00:36:21] VIEW request
-[00:36:33] VIEW request
-[00:36:33] VIEW request
-[00:36:44] VIEW request
-[00:36:44] VIEW request
-[00:38:55] VIEW request
-[00:38:55] VIEW request
-[00:39:20] VIEW request
-[00:39:21] VIEW request
-[00:40:46] VIEW request
-[00:40:46] VIEW request
-[00:45:07] VIEW request
-[00:45:08] VIEW request
-[00:45:51] VIEW request
-[00:45:51] VIEW request
-[00:47:20] VIEW request
-[00:47:20] VIEW request
-[00:50:18] VIEW request
-[01:55:30] [+] Password added successfully
-[01:55:30] Password added successfully
-[01:56:11] User doesn't exist
-[01:56:14] User doesn't exist
-[01:56:18] User doesn't exist
-[01:56:23] User doesn't exist
-[01:56:39] User doesn't exist
+[17:06:45] Error in add_password: 'str' object has no attribute 'id_user'
+[17:08:40] User doesn't exist
+[17:09:04] [+] User added successfully
+[17:09:22] Error in add_password: 'str' object has no attribute 'id_user'
+[17:10:55] Error in add_password: 'str' object has no attribute 'id_user'
+[17:11:29] Error in add_password: 'str' object has no attribute 'id_user'
+[17:13:43] Error in add_password: 'str' object has no attribute 'id_user'
+[17:14:15] Error in add_password: 'str' object has no attribute 'id_user'
+[17:14:15] Error in add_password: test
+[17:15:35] [+] Password added successfully

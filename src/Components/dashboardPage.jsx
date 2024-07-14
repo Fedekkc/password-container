@@ -4,71 +4,82 @@ import ShowPasswords from "./showPasswords";
 
 const DashboardPage = () => {
   const [passwords, setPasswords] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     const token = localStorage.getItem("token");
 
     if (!token) {
       navigate("/");
     } else {
       const userId = localStorage.getItem("userId");
-      localStorage.setItem("userId", userId);
+      console.log("userId", userId);
+      console.log("token", token);
 
-      try {
-        fetch("http://localhost:5000/dashboard?action=view", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-          body: JSON.stringify({ userId }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data.passwords);
-            setPasswords(data.passwords);
-          })
-          .catch((error) => {
-            console.error("Error fetching passwords:", error);
-          });
-      } catch (error) {
-        console.error("Error fetching passwords:", error);
-      }
-    }
-  }, []);  // Sin dependencias
-
-  const handleLogout = () => {
-    try {
-      fetch("http://localhost:5000/logout", {
+      fetch("http://localhost:5000/dashboard?action=view", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${token}` 
+        },
+        body: JSON.stringify({ userId: userId }),
       })
         .then((response) => {
           if (response.status === 200) {
+            return response.json();
+          } else if (response.status === 404) {
+            //El usuario no tiene contraseñas por ahora
+            return null;
+          } else if (response.status === 401) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
             navigate("/");
+            throw new Error("Unauthorized");
+          } else {
+            throw new Error("Unexpected error");
           }
+        })
+        .then((data) => {
+          if (data) {
+            setPasswords(data);
+          } else {
+            setPasswords([]);
+          }
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching passwords:", error);
+          setIsLoading(false);
         });
-    } catch (error) {
-      console.error("Error logging out:", error);
     }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    fetch("http://localhost:5000/logout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
   };
-  
-  
-
-
-
 
   return (
     <div>
       <h1>Dashboard</h1>
       <button onClick={handleLogout}>Cerrar sesión</button>
       <h1>Contraseñas</h1>
-      
-      <ShowPasswords passwords={passwords} />
+      {isLoading ? (
+        <p>Cargando...</p>
+      ) : (
+        <ShowPasswords passwords={passwords} />
+      )}
     </div>
   );
 };

@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import ShowPasswords from "./showPasswords";
 import styled from "styled-components";
 
 const FormContainer = styled.div`
@@ -9,75 +7,108 @@ const FormContainer = styled.div`
 `;
 
 const Label = styled.label`
-  /* Add your custom styles here */
+  /* Estilos personalizados */
 `;
 
 const Input = styled.input`
-  /* Add your custom styles here */
+  /* Estilos personalizados */
 `;
 
 const Button = styled.button`
-  /* Add your custom styles here */
+  /* Estilos personalizados */
+`;
+
+const Icon = styled.img`
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 10px;
 `;
 
 const DashboardForm = () => {
   const [service, setService] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [icon, setIcon] = useState(null); // Estado para la imagen
 
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    const userId = localStorage.getItem("userId");
-    console.log(userId);
-    
-    const data = { userId, service, user, password };
 
-    fetch("http://localhost:5000/dashboard?action=add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    }).then((response) => {
-      if (response.status === 200) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validación básica de campos
+    if (!service || !user || !password || !icon) {
+      alert("Por favor completa todos los campos");
+      return;
+    }
+
+    // Crear FormData para enviar datos con la imagen al backend
+    const formData = new FormData();
+    const userId = localStorage.getItem("userId");
+    formData.append("userId", userId);
+    formData.append("service", service);
+    formData.append("user", user);
+    formData.append("password", password);
+    formData.append("iconURI", icon);
+
+    try {
+      const response = await fetch("http://localhost:5000/dashboard?action=add", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
         navigate("/dashboard");
+      } else {
+        const data = await response.json();
+        alert(data.error || "Error al agregar datos");
       }
-    });
+    } catch (error) {
+      console.error("Error al agregar datos:", error);
+      alert("Error al agregar datos");
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const allowedExtensions = ["png", "jpg"];
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+
+    if (!file) return;
+
+    if (!allowedExtensions.includes(fileExtension)) {
+      alert("Selecciona un archivo .png o .jpg");
+      return;
+    }
+
+    setIcon(file); // Guardar el archivo en el estado
   };
 
   return (
     <FormContainer>
-      <ShowPasswords />
       <form onSubmit={handleSubmit}>
         <Label>
           Servicio:
-          <Input
-            type="text"
-            value={service}
-            onChange={(e) => setService(e.target.value)}
-          />
+          <Input type="text" value={service} onChange={(e) => setService(e.target.value)} />
         </Label>
         <br />
         <Label>
           Usuario:
-          <Input
-            type="text"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-          />
+          <Input type="text" value={user} onChange={(e) => setUser(e.target.value)} />
         </Label>
         <br />
         <Label>
           Contraseña:
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </Label>
         <br />
         <Label>
-          Imagen
-          <Input type="file" />
+          Imagen:
+          <Input type="file" accept=".png, .jpg" onChange={handleFileChange} />
+          {icon && <Icon src={URL.createObjectURL(icon)} alt="icon" />} {/* Mostrar la vista previa de la imagen */}
         </Label>
+        <br />
         <Button type="submit">Guardar</Button>
       </form>
     </FormContainer>

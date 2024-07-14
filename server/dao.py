@@ -136,18 +136,19 @@ class DAO:
 
     def add_password(self, password):
         try:
-            query = "INSERT INTO `passwords` (id_user, service, password, register_date) VALUES (%s, %s, %s, NOW())"
-            self.execute_query(query, (password.id_user, password.service, password.password), commit=True)
+            query = "INSERT INTO `passwords` (id_user, service, password, register_date, iconURI) VALUES (%s, %s, %s, NOW(), %s)"
+            self.execute_query(query, (password.id_user, password.service, password.password, password.iconURI), commit=True)
             self.logger.write_log("[+] Password added successfully")
             return True
         except Exception as e:
             self.logger.write_log("Error in add_password: " + str(e))
+            self.logger.write_log("Error in add_password: " + str(password))
             return False
 
     def get_user_passwords(self, id_user):
         query = "SELECT * FROM `passwords` WHERE id_user = %s"
         result = self.execute_fetch_query(query, (id_user,))
-        passwords = [Password(p['id_user'], p['service'], p['password'], p['register_date']) for p in result]
+        passwords = [Password(p['id_user'], p['service'], p['password'], p['register_date'], p['iconURI']) for p in result]
         return passwords if passwords else False
 
     def get_user_id(self, email):

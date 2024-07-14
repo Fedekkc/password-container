@@ -12,8 +12,9 @@ CREATE TABLE IF NOT EXISTS `users`(
 
 CREATE TABLE IF NOT EXISTS `passwords`(
 `id_user` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-`icon` BLOB,
+`iconURI` VARCHAR(128),
 `service` TEXT NOT NULL,
 `password` TEXT NOT NULL,
 `register_date` TEXT NOT NULL);
 SELECT * FROM users;
+select * from passwords;
