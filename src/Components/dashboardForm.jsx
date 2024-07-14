@@ -29,7 +29,7 @@ const DashboardForm = () => {
   const handleSubmit = (e) => {
     const userId = localStorage.getItem("userId");
     console.log(userId);
-    e.preventDefault();
+    
     const data = { userId, service, user, password };
 
     fetch("http://localhost:5000/dashboard?action=add", {
@@ -74,6 +74,10 @@ const DashboardForm = () => {
           />
         </Label>
         <br />
+        <Label>
+          Imagen
+          <Input type="file" />
+        </Label>
         <Button type="submit">Guardar</Button>
       </form>
     </FormContainer>

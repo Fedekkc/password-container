@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import DashboardForm from "./dashboardForm";
 
 const Container = styled.div`
     display: grid;
@@ -21,7 +22,6 @@ const Title = styled.h2`
     color: #333;
 `;
 
-// Botón "agregar contraseña"
 const AddButton = styled.div`
     cursor: pointer;
     background-color: #111016;
@@ -30,13 +30,11 @@ const AddButton = styled.div`
     margin: auto;
     box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
     p {
-    
         color: #FFFFFF;
         font-size: 2.0rem;
         font-family: 'Gurajada', sans-serif;
     }
 `;
-
 
 const PasswordContainer = styled.div`
     cursor: pointer;
@@ -46,7 +44,6 @@ const PasswordContainer = styled.div`
     margin: auto;
     box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
     p {
-       
         color: #FFFFFF;
         font-size: 2.0rem;
         font-family: 'Gurajada', sans-serif;
@@ -60,9 +57,13 @@ const PasswordFrame = styled.div`
     justify-content: center;
 `;
 
-
-
 const ShowPasswords = ({ passwords }) => {
+    const [showForm, setShowForm] = useState(false);
+
+    const handleAddPassword = () => {
+        setShowForm(!showForm );
+    };
+
     if (passwords == null) {
         return (
             <Container>
@@ -72,16 +73,21 @@ const ShowPasswords = ({ passwords }) => {
     }
 
     return (
-        <Container>
-            <AddButton> <p>+</p> </AddButton>
-            {passwords.map((password, index) => (
-                <PasswordContainer key={index}>
-                    <PasswordFrame>
-                    <p>{password.service}</p>
-                    </PasswordFrame>
-                </PasswordContainer>
-            ))}
-        </Container>
+        <div>
+            {showForm && <DashboardForm />}
+            <Container>
+                <AddButton onClick={handleAddPassword}>
+                    <p>+</p>
+                </AddButton>
+                {passwords.map((password, index) => (
+                    <PasswordContainer key={index}>
+                        <PasswordFrame>
+                            <p>{password.service}</p>
+                        </PasswordFrame>
+                    </PasswordContainer>
+                ))}
+            </Container>
+        </div>
     );
 };
 
