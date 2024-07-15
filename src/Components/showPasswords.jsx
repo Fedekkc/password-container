@@ -26,7 +26,7 @@ const AddButton = styled.div`
     cursor: pointer;
     background-color: #111016;
     border-radius: 101px;
-    width: 40%;
+    width: 60%;
     margin: auto;
     box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
     p {
@@ -40,7 +40,7 @@ const PasswordContainer = styled.div`
     cursor: pointer;
     background-color: #111016;
     border-radius: 101px;
-    width: 40%;
+    width: 60%;
     margin: auto;
     box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
     p {

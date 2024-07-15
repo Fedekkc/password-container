@@ -1,10 +1,4 @@
-[17:06:45] Error in add_password: 'str' object has no attribute 'id_user'
-[17:08:40] User doesn't exist
-[17:09:04] [+] User added successfully
-[17:09:22] Error in add_password: 'str' object has no attribute 'id_user'
-[17:10:55] Error in add_password: 'str' object has no attribute 'id_user'
-[17:11:29] Error in add_password: 'str' object has no attribute 'id_user'
-[17:13:43] Error in add_password: 'str' object has no attribute 'id_user'
-[17:14:15] Error in add_password: 'str' object has no attribute 'id_user'
-[17:14:15] Error in add_password: test
-[17:15:35] [+] Password added successfully
+[13:56:42] [+] User added successfully
+[13:56:53] [+] Password added successfully
+[13:57:16] [+] Password added successfully
+[13:57:36] [+] Password added successfully

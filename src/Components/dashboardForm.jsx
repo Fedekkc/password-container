@@ -4,6 +4,9 @@ import styled from "styled-components";
 
 const FormContainer = styled.div`
   background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Label = styled.label`
@@ -46,6 +49,8 @@ const DashboardForm = () => {
     // Crear FormData para enviar datos con la imagen al backend
     const formData = new FormData();
     const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+    console.log(token);
     formData.append("userId", userId);
     formData.append("service", service);
     formData.append("user", user);
@@ -55,6 +60,9 @@ const DashboardForm = () => {
     try {
       const response = await fetch("http://localhost:5000/dashboard?action=add", {
         method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
         body: formData,
       });
 

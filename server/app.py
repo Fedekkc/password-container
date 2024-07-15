@@ -73,10 +73,9 @@ def check_token(token):
         decoded_token = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
         logger.write_log("Token decodificado: {}".format(str(decoded_token)))  
         current_time = datetime.now()
+        current_time = current_time.timestamp()
         expiration_time = decoded_token['exp']
         logger.write_log("Hora actual: {}".format(str(current_time)))
-        expiration_time_utc = expiration_time.replace(tzinfo=None)
-
         if current_time > expiration_time:
             return 'Token expirado. Por favor inicia sesión de nuevo'
         logger.write_log(decoded_token['user_id'])
@@ -130,9 +129,12 @@ def dashboard(user_id):
             logger.write_log("Viewing passwords")
             try:
                 passwords = dao.get_user_passwords(user_id)
-                logger.write_log(str(passwords))
+                jsonPasswords = []
+                for p in passwords:
+                    logger.write_log("Password retrieved: {}".format(str(p)))
+                    jsonPasswords.append(p.to_dict())
                 logger.write_log("Passwords retrieved")
-                return jsonify(passwords), 200
+                return jsonify(jsonPasswords), 200
             
             except Exception as e:
                 logger.write_log(str(e))
