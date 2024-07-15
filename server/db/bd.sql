@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS `passwords`(
 `service` TEXT NOT NULL,
 `password` TEXT NOT NULL,
 `register_date` TEXT NOT NULL,
-FOREIGN KEY (`id_user`) REFERENCES `users`(`id_user`);
+FOREIGN KEY (`id_user`) REFERENCES `users`(`id_user`));
 SELECT * FROM users;
 select * from passwords;
