@@ -67,7 +67,16 @@ const DashboardForm = () => {
       });
 
       if (response.ok) {
-        navigate("/dashboard");
+        // Limpiar campos
+        setService("");
+        setUser("");
+        setPassword("");
+        // Para limpiar el input de tipo file
+        document.querySelector("input[type=file]").value = "";
+        setIcon(null);
+        alert("Datos agregados correctamente");
+        // Recargar la página para mostrar los nuevos datos
+        window.location.reload();
       } else {
         const data = await response.json();
         alert(data.error || "Error al agregar datos");
