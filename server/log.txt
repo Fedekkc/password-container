@@ -1,4 +1,0 @@
-[13:56:42] [+] User added successfully
-[13:56:53] [+] Password added successfully
-[13:57:16] [+] Password added successfully
-[13:57:36] [+] Password added successfully

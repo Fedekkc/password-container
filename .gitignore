@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /server/__pycache__
+server/log
 __pycache__
 server\__pycache__
 server\log.txt

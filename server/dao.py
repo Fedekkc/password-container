@@ -32,7 +32,7 @@ class DatabaseConnectionPool:
         return self.cnxpool.get_connection()
 
 class Logger:
-    def __init__(self, log_file="log.txt"):
+    def __init__(self, log_file="log/dao.log"):
         self.log_file = log_file
         self.create_log_file()
 

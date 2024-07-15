@@ -28,7 +28,7 @@ def configure_app():
 
 # Clase Logger personalizada
 class Logger:
-    def __init__(self, log_file='app.log'):
+    def __init__(self, log_file='log/app.log'):
         self.log_file = log_file
 
     def write_log(self, message):
