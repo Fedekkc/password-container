@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "./AuthContext";
 
 const FormContainer = styled.div`
   background-color: #f5f5f5;
@@ -29,28 +30,39 @@ const Icon = styled.img`
   margin-top: 10px;
 `;
 
-const DashboardForm = () => {
+const Message = styled.p`
+  color: ${props => props.error ? 'red' : 'green'};
+  font-size: 1rem;
+`;
+
+const DashboardForm = ({ setPasswords }) => {
+  const { isLoggedIn } = useAuth();
   const [service, setService] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [icon, setIcon] = useState(null); // Estado para la imagen
+  const [icon, setIcon] = useState(null);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validación básica de campos
-    if (!service || !user || !password || !icon) {
-      alert("Por favor completa todos los campos");
+    if (!isLoggedIn) {
+      navigate("/"); // Redirige al usuario si no está autenticado
       return;
     }
 
-    // Crear FormData para enviar datos con la imagen al backend
+    if (!service || !user || !password || !icon) {
+      setMessage("Por favor completa todos los campos");
+      setError(true);
+      return;
+    }
+
     const formData = new FormData();
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
-    console.log(token);
     formData.append("userId", userId);
     formData.append("service", service);
     formData.append("user", user);
@@ -67,23 +79,28 @@ const DashboardForm = () => {
       });
 
       if (response.ok) {
-        // Limpiar campos
+        const data = await response.json();
+        setPasswords((prevPasswords) => [...prevPasswords, data]);
         setService("");
         setUser("");
         setPassword("");
-        // Para limpiar el input de tipo file
         document.querySelector("input[type=file]").value = "";
         setIcon(null);
-        alert("Datos agregados correctamente");
-        // Recargar la página para mostrar los nuevos datos
-        window.location.reload();
+        setMessage("Datos agregados correctamente");
+        setError(false);
+      } else if (response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        navigate("/");
       } else {
         const data = await response.json();
-        alert(data.error || "Error al agregar datos");
+        setMessage(data.error || "Error al agregar datos");
+        setError(true);
       }
     } catch (error) {
       console.error("Error al agregar datos:", error);
-      alert("Error al agregar datos");
+      setMessage("Error al agregar datos");
+      setError(true);
     }
   };
 
@@ -95,11 +112,12 @@ const DashboardForm = () => {
     if (!file) return;
 
     if (!allowedExtensions.includes(fileExtension)) {
-      alert("Selecciona un archivo .png o .jpg");
+      setMessage("Selecciona un archivo .png o .jpg");
+      setError(true);
       return;
     }
 
-    setIcon(file); // Guardar el archivo en el estado
+    setIcon(file);
   };
 
   return (
@@ -123,10 +141,11 @@ const DashboardForm = () => {
         <Label>
           Imagen:
           <Input type="file" accept=".png, .jpg" onChange={handleFileChange} />
-          {icon && <Icon src={URL.createObjectURL(icon)} alt="icon" />} {/* Mostrar la vista previa de la imagen */}
+          {icon && <Icon src={URL.createObjectURL(icon)} alt="icon" />}
         </Label>
         <br />
         <Button type="submit">Guardar</Button>
+        {message && <Message error={error}>{message}</Message>}
       </form>
     </FormContainer>
   );

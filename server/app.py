@@ -17,7 +17,7 @@ def configure_app():
     app.config['SECRET_KEY'] = '46503911Ko!'
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
     app.config['JSON_SORT_KEYS'] = False
-    app.config['UPLOAD_FOLDER'] = 'static/images'
+    app.config['UPLOAD_FOLDER'] = '../public/static/images'
     
     CORS(app)
     # crear la carpeta de imágenes si no existe
@@ -154,7 +154,8 @@ def dashboard(user_id):
                 filename = secure_filename(iconURI.filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 iconURI.save(file_path)
-
+                # quitamos el prefijo '../public' para que la ruta sea relativa
+                file_path = file_path.replace('../public', '')
                 # Guardar la ruta de la imagen en la base de datos
                 password = Password(user_id, service, password,'', file_path)
                 if dao.add_password(password):

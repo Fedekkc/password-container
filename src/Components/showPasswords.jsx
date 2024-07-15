@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DashboardForm from "./dashboardForm";
 
+
+
 const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
+    gap: 3rem; 
+    padding: 20px;     
     margin-top: 20px;
-    justify-content: space-between;
+    justify-content: center; /* Cambiado a center para centrar horizontalmente */
     align-items: center;
     text-align: center;
     border-radius: 10px;
@@ -16,6 +18,13 @@ const Container = styled.div`
     margin-bottom: 20px;
     width: 80%;
     height: 80%;
+    
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
 `;
 
 const Title = styled.h2`
@@ -26,13 +35,16 @@ const AddButton = styled.div`
     cursor: pointer;
     background-color: #111016;
     border-radius: 101px;
-    width: 60%;
-    margin: auto;
+    width: 80%;
+    max-width: 80%;
     box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     p {
-        color: #FFFFFF;
-        font-size: 2.0rem;
-        font-family: 'Gurajada', sans-serif;
+
     }
 `;
 
@@ -40,26 +52,85 @@ const PasswordContainer = styled.div`
     cursor: pointer;
     background-color: #111016;
     border-radius: 101px;
-    width: 60%;
-    margin: auto;
+    width: 80%;
+    max-width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;    
     box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
-    p {
-        color: #FFFFFF;
-        font-size: 2.0rem;
-        font-family: 'Gurajada', sans-serif;
+    height: 6rem;
+
+    &:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s;
     }
+    
 `;
 
+
 const PasswordFrame = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+`;
+
+const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
 
-const ShowPasswords = ({ passwords }) => {
+const IconContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 50%;
+`;
+
+const Icon = styled.img`
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 10px;
+`;
+const TextContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    width: 20%;
+    
+`;
+
+const PasswordService = styled.p`
+    font-size: 2.0rem;
+    font-family: 'Gurajada', sans-serif;
+    color: #FFFFFF;
+    margin-right: 10px;
+    
+`;
+
+const Plus = styled.p`
+        color: #FFFFFF;
+        font-size: 2.0rem;
+        font-family: 'Gurajada', sans-serif;
+
+`;
+
+const ShowPasswords = ({ passwords, setPasswords }) => {
     const [showForm, setShowForm] = useState(false);
 
+
+    console.log(passwords);
     const handleAddPassword = () => {
         setShowForm(!showForm );
     };
@@ -73,21 +144,26 @@ const ShowPasswords = ({ passwords }) => {
     }
 
     return (
-        <div>
-            {showForm && <DashboardForm />}
+        <MainContainer>
+            {showForm && <DashboardForm setPasswords={setPasswords} />}
             <Container>
-                <AddButton onClick={handleAddPassword}>
-                    <p>+</p>
-                </AddButton>
+                <PasswordContainer onClick={handleAddPassword}>
+                    <Plus>+</Plus>
+                </PasswordContainer>
                 {passwords.map((password, index) => (
                     <PasswordContainer key={index}>
                         <PasswordFrame>
-                            <p>{password.service}</p>
+                            <IconContainer>
+                            {password.iconURI && <Icon src={password.iconURI} alt="a" />} 
+                            </IconContainer>
+                            <TextContainer>
+                            <PasswordService> {password.service} </PasswordService> 
+                            </TextContainer>
                         </PasswordFrame>
                     </PasswordContainer>
                 ))}
             </Container>
-        </div>
+        </MainContainer>
     );
 };
 

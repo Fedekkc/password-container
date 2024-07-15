@@ -6,6 +6,7 @@ import DashboardPage from './Components/dashboardPage';
 import HomePage from './Components/homePage';
 import NavBar from './Components/navBar';
 import PrivateRoute from './Components/privateRoute';
+import AuthContext from './Components/AuthContext';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 
@@ -23,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     background-position: center center;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow: visible;
 
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -59,11 +60,14 @@ const App = () => {
 
   console.log(isLoggedIn);
 
+  
+
   return (
     <ThemeProvider theme={theme}>
       <>
         <GlobalStyle />
         <Router>
+          <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
           <NavBar isLoggedIn={isLoggedIn} />
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -71,6 +75,7 @@ const App = () => {
             <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="/dashboard" element={ <PrivateRoute isLoggedIn={isLoggedIn} children={<DashboardPage />} />} />
           </Routes>
+          </AuthContext.Provider>
         </Router>
       </>
     </ThemeProvider>
