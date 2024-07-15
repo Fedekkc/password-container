@@ -50,6 +50,7 @@ const DashboardForm = ({ setPasswords }) => {
     e.preventDefault();
 
     if (!isLoggedIn) {
+      alert("No iniciaste sesión");
       navigate("/"); // Redirige al usuario si no está autenticado
       return;
     }
@@ -88,9 +89,11 @@ const DashboardForm = ({ setPasswords }) => {
         setIcon(null);
         setMessage("Datos agregados correctamente");
         setError(false);
+        alert(isLoggedIn);        
       } else if (response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
+        alert("Sesión expirada");
         navigate("/");
       } else {
         const data = await response.json();
