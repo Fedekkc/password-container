@@ -4,11 +4,26 @@ import styled from "styled-components";
 import { useAuth } from "./AuthContext";
 
 const FormContainer = styled.div`
-  background-color: #f5f5f5;
+  background-color: #00000;
   display: flex;
+  margin-top: 2rem;
   align-items: center;
   justify-content: center;
+  border-radius: 500px;
+  box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
+  width: 20rem;
+  height: 10rem;
 `;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #00000;
+  border-radius: 50px;
+`;
+
 
 const Label = styled.label`
   /* Estilos personalizados */
@@ -125,31 +140,22 @@ const DashboardForm = ({ setPasswords }) => {
 
   return (
     <FormContainer>
-      <form onSubmit={handleSubmit}>
-        <Label>
-          Servicio:
-          <Input type="text" value={service} onChange={(e) => setService(e.target.value)} />
-        </Label>
-        <br />
-        <Label>
-          Usuario:
-          <Input type="text" value={user} onChange={(e) => setUser(e.target.value)} />
-        </Label>
-        <br />
-        <Label>
-          Contraseña:
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </Label>
-        <br />
-        <Label>
-          Imagen:
+      <Form onSubmit={handleSubmit}>
+        
+          <Input type="text" value={service} placeholder="Servicio" onChange={(e) => setService(e.target.value)} />
+        
+          <Input type="text" value={user} placeholder="Usuario" onChange={(e) => setUser(e.target.value)} />
+        
+        
+          <Input type="password" value={password} placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
+        
+
           <Input type="file" accept=".png, .jpg" onChange={handleFileChange} />
           {icon && <Icon src={URL.createObjectURL(icon)} alt="icon" />}
-        </Label>
-        <br />
+
         <Button type="submit">Guardar</Button>
         {message && <Message error={error}>{message}</Message>}
-      </form>
+      </Form>
     </FormContainer>
   );
 };
