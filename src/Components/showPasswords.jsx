@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DashboardForm from "./dashboardForm";
 
-
-
 const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -129,9 +127,9 @@ const Plus = styled.p`
 const ShowPasswords = ({ passwords, setPasswords }) => {
     const [showForm, setShowForm] = useState(false);
 
-
     console.log(passwords);
-    const handleAddPassword = () => {
+    const handleAddPassword = (e) => {
+        e.preventDefault();
         setShowForm(!showForm );
     };
 

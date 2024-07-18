@@ -24,7 +24,6 @@ const Form = styled.form`
   border-radius: 50px;
 `;
 
-
 const Label = styled.label`
   /* Estilos personalizados */
 `;
@@ -93,6 +92,7 @@ const DashboardForm = ({ setPasswords }) => {
         },
         body: formData,
       });
+      //Mostrar el estado del componente y por qué recargamos la página
 
       if (response.ok) {
         const data = await response.json();
@@ -104,7 +104,6 @@ const DashboardForm = ({ setPasswords }) => {
         setIcon(null);
         setMessage("Datos agregados correctamente");
         setError(false);
-        alert(isLoggedIn);        
       } else if (response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
@@ -119,8 +118,8 @@ const DashboardForm = ({ setPasswords }) => {
       console.error("Error al agregar datos:", error);
       setMessage("Error al agregar datos");
       setError(true);
-    }
-  };
+    } 
+  }; 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -141,18 +140,11 @@ const DashboardForm = ({ setPasswords }) => {
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-        
-          <Input type="text" value={service} placeholder="Servicio" onChange={(e) => setService(e.target.value)} />
-        
-          <Input type="text" value={user} placeholder="Usuario" onChange={(e) => setUser(e.target.value)} />
-        
-        
-          <Input type="password" value={password} placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
-        
-
-          <Input type="file" accept=".png, .jpg" onChange={handleFileChange} />
-          {icon && <Icon src={URL.createObjectURL(icon)} alt="icon" />}
-
+        <Input type="text" value={service} placeholder="Servicio" onChange={(e) => setService(e.target.value)} />
+        <Input type="text" value={user} placeholder="Usuario" onChange={(e) => setUser(e.target.value)} />
+        <Input type="password" value={password} placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
+        <Input type="file" accept=".png, .jpg" onChange={handleFileChange} />
+        {icon && <Icon src={URL.createObjectURL(icon)} alt="icon" />}
         <Button type="submit">Guardar</Button>
         {message && <Message error={error}>{message}</Message>}
       </Form>

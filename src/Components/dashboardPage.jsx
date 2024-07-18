@@ -9,7 +9,7 @@ const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect((e) => {
     const token = localStorage.getItem("token");
 
     if (!isLoggedIn || !token) { // Verifica isLoggedIn para asegurar que el usuario esté autenticado
