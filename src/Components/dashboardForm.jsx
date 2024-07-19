@@ -9,10 +9,10 @@ const FormContainer = styled.div`
   margin-top: 2rem;
   align-items: center;
   justify-content: center;
-  border-radius: 500px;
+  border-radius: 100px;
   box-shadow: 4px 6px 15px 1px rgba(254, 254, 254, 0.15);
-  width: 20rem;
-  height: 10rem;
+  width: 60rem;
+  height: 30rem;
 `;
 
 const Form = styled.form`
@@ -22,18 +22,76 @@ const Form = styled.form`
   justify-content: center;
   background-color: #00000;
   border-radius: 50px;
-`;
-
-const Label = styled.label`
-  /* Estilos personalizados */
+  width: 100%;
 `;
 
 const Input = styled.input`
-  /* Estilos personalizados */
+    
+  border: none;
+  border-bottom: 1px solid #00000;
+  /* Establecemos un color de fondo con 57% de opacidad */
+  background-color: rgba(58, 55, 55, 0.57);
+
+  margin: 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  width: 80%;
+  height: 2rem;
+  font-size: 1rem;
+  color: rgba(197, 200, 200, 0.60);
+  text-align: center;
+  border-radius: 500px;
+  outline: none;
+  transition: 0.3s;
+  &:focus {
+    border-bottom: 1px solid #00000;
+  }
+  &::placeholder {
+    color: rgba(197, 200, 200, 0.60);
+  }
+  &::-webkit-input-placeholder { /* this is for webkit browsers */
+    color: rgba(197, 200, 200, 0.60);
+  }
+
+    &::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  &::before {
+    content: 'Seleccionar archivo';
+    display: inline-block;
+    background-color: #fff;
+    color: #00000;
+    border: 1px solid #00000;
+    padding: 0.5rem 1rem;
+    border-radius: 500px;
+    cursor: pointer;
+  }
+
+
 `;
 
 const Button = styled.button`
-  /* Estilos personalizados */
+  width: 45%;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  background-color: #111016;
+  color: rgba(238, 239, 233, 0.8);
+  border:  inset 0.1rem rgba(238, 239, 233, 0.8);
+
+  font-size: 1rem;
+  height: 2.5rem;
+  
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgba(238, 239, 233, 0.8);
+    color: #111016;
+    cursor: pointer;
+  }
 `;
 
 const Icon = styled.img`
@@ -42,6 +100,9 @@ const Icon = styled.img`
   object-fit: cover;
   border-radius: 50%;
   margin-top: 10px;
+
+  /* Estilos personalizados: Quitamos el estilo que tiene por defecto el input file */
+
 `;
 
 const Message = styled.p`

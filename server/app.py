@@ -3,9 +3,9 @@ from flask import Flask, render_template, request, jsonify
 import jwt
 from datetime import datetime, timedelta
 from flask_cors import CORS
-from dao import DAO, DatabaseConfig
-from user import User
-from password import Password
+from server.db.dao import DAO, DatabaseConfig
+from server.entities.user import User
+from server.entities.password import Password
 import os
 from functools import wraps
 from werkzeug.utils import secure_filename

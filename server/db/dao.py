@@ -7,7 +7,7 @@ import datetime
 import json
 import logging
 import random
-from password import Password
+from server.entities.password import Password
 
 class DatabaseConfig:
     def __init__(self, config_file='db/db.json'):
