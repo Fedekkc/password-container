@@ -7,17 +7,18 @@ import datetime
 import json
 import logging
 import random
-from server.entities.password import Password
+import dotenv
+from entities.password import Password
 
 class DatabaseConfig:
-    def __init__(self, config_file='db/db.json'):
-        with open(config_file, 'r') as j:
-            data = json.load(j)
+    # init con dotenv
+    def __init__(self):
+        dotenv.load_dotenv()
         self.dbconfig = {
-            "host": data["host"],
-            "user": data["user"],
-            "password": data["password"],
-            "database": data["database"]
+            "host": os.getenv("DB_HOST"),
+            "user": os.getenv("DB_USER"),
+            "password": os.getenv("DB_PASSWORD"),
+            "database": os.getenv("DB_NAME")
         }
 
 class DatabaseConnectionPool:

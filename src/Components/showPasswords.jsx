@@ -127,9 +127,13 @@ const AnimContainer = styled.div`
 
 const ShowPasswords = ({ passwords, setPasswords }) => {
     const [showForm, setShowForm] = useState(false);
+    const [expandedIndex, setExpandedIndex] = useState(null);
+
+
 
     const handleAddPassword = (e) => {
         e.preventDefault();
+        
         setShowForm(!showForm);
     };
 
